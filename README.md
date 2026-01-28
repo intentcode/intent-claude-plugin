@@ -26,26 +26,41 @@ fr: Valide les identifiants et génère des tokens JWT.
 
 ## Installation
 
-### Option 1: Local plugin
+### Option 1: Development (--plugin-dir)
+
+Load the plugin locally for development and testing:
 
 ```bash
-# Clone to plugins directory
-git clone https://github.com/intentcode/intent-claude-plugin ~/.claude/plugins/intent
+# Clone the repo
+git clone https://github.com/intentcode/intent-claude-plugin
+cd intent-claude-plugin
 
-# Enable in settings
-# Add to ~/.claude/settings.json:
-{
-  "enabledPlugins": {
-    "intent": true
-  }
-}
+# Launch Claude Code with the plugin
+claude --plugin-dir .
+
+# Or resume an existing session with the plugin
+claude --plugin-dir . --resume
 ```
 
-### Option 2: Symlink from dev
+Skills will be available as `/intent:generating-intents` and `/intent:reviewing-with-intents`.
+
+### Option 2: Standalone skills
+
+Copy skills directly to your Claude skills directory:
 
 ```bash
-# If developing locally
-ln -s /path/to/intent-claude-plugin ~/.claude/plugins/intent
+# Clone and copy skills
+git clone https://github.com/intentcode/intent-claude-plugin
+cp -r intent-claude-plugin/skills/* ~/.claude/skills/
+```
+
+Skills will be available as `/generating-intents` and `/reviewing-with-intents`.
+
+### Option 3: Marketplace (coming soon)
+
+```bash
+claude
+> /plugin install intent
 ```
 
 ## Usage
@@ -58,10 +73,10 @@ When ready to commit code changes:
 Generate an intent for my changes
 ```
 
-or
+or use the skill directly:
 
 ```
-/intent
+/intent:generating-intents
 ```
 
 The skill will:
@@ -142,8 +157,12 @@ your-project/
 
 | Skill | Purpose |
 |-------|---------|
-| `intent:generating-intents` | Create intents from your code changes |
-| `intent:reviewing-with-intents` | Add intents during PR review |
+| `/intent:generating-intents` | Create intents from your code changes |
+| `/intent:reviewing-with-intents` | Add intents during PR review |
+
+## Development
+
+See [CLAUDE.md](./CLAUDE.md) for development documentation.
 
 ## Links
 

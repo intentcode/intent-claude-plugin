@@ -1,0 +1,6 @@
+version: 2
+default_lang: en
+intents:
+  - id: "001"
+    file: 001-initial-plugin-structure.intent.md
+    status: active
