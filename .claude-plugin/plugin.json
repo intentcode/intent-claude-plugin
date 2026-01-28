@@ -1,0 +1,21 @@
+{
+  "name": "intent",
+  "description": "Generate structured intent documentation that captures the 'why' behind code changes. Creates .intent.md files with semantic anchors linking explanations to code, helping teams understand design decisions during development and code review.",
+  "version": "0.1.0",
+  "author": {
+    "name": "IntentCode",
+    "email": "hello@intentcode.dev"
+  },
+  "repository": "https://github.com/intentcode/intent-claude-plugin",
+  "homepage": "https://intent-code.vercel.app",
+  "license": "MIT",
+  "keywords": [
+    "documentation",
+    "intent",
+    "code-review",
+    "decisions",
+    "semantic-anchors",
+    "why",
+    "rationale"
+  ]
+}
