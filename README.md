@@ -26,27 +26,35 @@ fr: Valide les identifiants et génère des tokens JWT.
 
 ## Installation
 
-### Option 1: Development (--plugin-dir)
+### Option 1: Full Plugin (Recommended)
 
-Load the plugin locally for development and testing:
+Use the `--plugin-dir` flag to load the complete plugin with hooks and skills:
 
 ```bash
-# Clone the repo
+# Clone the repository
 git clone https://github.com/intentcode/intent-claude-plugin
-cd intent-claude-plugin
 
-# Launch Claude Code with the plugin
+# Start Claude Code with the plugin loaded
+claude --plugin-dir ./intent-claude-plugin
+
+# Or from inside the plugin directory
+cd intent-claude-plugin
 claude --plugin-dir .
 
-# Or resume an existing session with the plugin
-claude --plugin-dir . --resume
+# Resume an existing session with the plugin
+claude --plugin-dir ./intent-claude-plugin --resume
 ```
 
-Skills will be available as `/intent:generating-intents` and `/intent:reviewing-with-intents`.
+**What you get:**
+- Skills: `/intent:generating-intents` and `/intent:reviewing-with-intents`
+- SessionStart hook: Injects intent context at startup
+- Full plugin experience
 
-### Option 2: Standalone skills
+**Note:** The `--plugin-dir` flag must be used every time you start Claude Code to load the plugin. There is no persistent installation yet.
 
-Copy skills directly to your Claude skills directory:
+### Option 2: Skills Only (No Hooks)
+
+Copy just the skills to your Claude skills directory:
 
 ```bash
 # Clone and copy skills
@@ -54,14 +62,26 @@ git clone https://github.com/intentcode/intent-claude-plugin
 cp -r intent-claude-plugin/skills/* ~/.claude/skills/
 ```
 
-Skills will be available as `/generating-intents` and `/reviewing-with-intents`.
+**What you get:**
+- Skills: `/generating-intents` and `/reviewing-with-intents` (no namespace prefix)
+- No hooks (no automatic context injection at startup)
+- Persistent installation (skills available in all sessions)
 
-### Option 3: Marketplace (coming soon)
+### Option 3: Marketplace (Coming Soon)
 
 ```bash
 claude
 > /plugin install intent
 ```
+
+### Which Option Should I Choose?
+
+| Need | Recommended Option |
+|------|-------------------|
+| Full experience with hooks | Option 1: `--plugin-dir` |
+| Persistent installation | Option 2: Skills only |
+| Contributing/developing | Option 1: `--plugin-dir` |
+| Just trying it out | Option 1: `--plugin-dir` |
 
 ## Usage
 
