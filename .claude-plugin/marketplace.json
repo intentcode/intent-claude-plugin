@@ -1,0 +1,10 @@
+{
+  "name": "intentcode",
+  "description": "IntentCode plugins for Claude Code - Tools for documenting the 'why' behind code changes",
+  "plugins": {
+    "intent": {
+      "git": "https://github.com/intentcode/intent-claude-plugin",
+      "description": "Generate structured intent documentation that captures the 'why' behind code changes with semantic anchors"
+    }
+  }
+}
