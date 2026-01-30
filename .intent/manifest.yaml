@@ -4,3 +4,6 @@ intents:
   - id: "001"
     file: 001-initial-plugin-structure.intent.md
     status: active
+  - id: "002"
+    file: 002-pre-commit-check-hook.intent.md
+    status: active
