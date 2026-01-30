@@ -23,6 +23,7 @@ fr: Valide les identifiants et génère des tokens JWT.
 - **Semantic anchors** - Link docs to `@function`, `@class`, `@method`, `@pattern`
 - **Decision capture** - Document the "why", not just the "what"
 - **PR review mode** - Add intents to unclear code during review
+- **Smart pre-commit check** - Reminds you to document new code before committing
 
 ## Installation
 
@@ -48,6 +49,7 @@ claude --plugin-dir ./intent-claude-plugin --resume
 **What you get:**
 - Skills: `/intent:generating-intents` and `/intent:reviewing-with-intents`
 - SessionStart hook: Injects intent context at startup
+- Pre-commit hook: Checks if your code changes have intent coverage
 - Full plugin experience
 
 **Note:** The `--plugin-dir` flag must be used every time you start Claude Code to load the plugin. There is no persistent installation yet.
@@ -179,6 +181,25 @@ your-project/
 |-------|---------|
 | `/intent:generating-intents` | Create intents from your code changes |
 | `/intent:reviewing-with-intents` | Add intents during PR review |
+
+## Hooks
+
+The plugin includes automatic hooks that run in the background:
+
+| Hook | Trigger | Purpose |
+|------|---------|---------|
+| SessionStart | New/resumed session | Injects intent context and reminders |
+| Pre-commit check | `git commit` | Checks if staged files have intent coverage |
+
+### Pre-commit Check Behavior
+
+When you run `git commit` with 2+ code files staged, the hook:
+
+1. **No intent exists** for these files → Suggests creating one
+2. **Intent exists** but new functions/classes aren't documented → Suggests adding chunks
+3. **Intent is complete** → Silent (no interruption)
+
+The hook never blocks commits - it only suggests documentation.
 
 ## Development
 
