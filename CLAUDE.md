@@ -1,6 +1,14 @@
 # Intent Plugin - Development Guide
 
-## Quick Start (Development)
+## Quick Start
+
+### Install from GitHub (Recommended)
+
+```bash
+claude /install-plugin https://github.com/intentcode/intent-claude-plugin
+```
+
+### Development Mode
 
 ```bash
 # Load plugin locally
@@ -15,16 +23,20 @@ claude --plugin-dir /path/to/intent-claude-plugin --resume
 ```
 intent-claude-plugin/
 ├── .claude-plugin/
-│   └── plugin.json              # Plugin metadata
+│   ├── plugin.json              # Plugin metadata
+│   └── marketplace.json         # Marketplace distribution config
 ├── hooks/
 │   ├── hooks.json               # Hook configuration
-│   └── session-start.sh         # Injects context at startup
+│   ├── session-start.sh         # Injects context at startup
+│   └── pre-commit-check.sh      # Checks intent coverage on commit
 ├── skills/
 │   ├── generating-intents/
 │   │   ├── SKILL.md             # Main skill: generate intents
 │   │   └── anchor-reference.md  # Semantic anchors reference
 │   └── reviewing-with-intents/
 │       └── SKILL.md             # PR review skill
+├── CLAUDE.md                    # Development documentation
+├── LICENSE                      # MIT license
 └── README.md
 ```
 
@@ -117,6 +129,24 @@ Injects intent documentation context at session start. Reminds about:
 - When to generate intents
 - How to use `/intent:generating-intents`
 - Intent file format basics
+
+### PreToolUse: Pre-commit Check
+
+Runs on `git commit` commands. Detects if staged code files have intent coverage.
+
+**Logic:**
+1. Only triggers on `git commit` with 2+ code files staged
+2. Excludes `.intent/`, docs, configs from check
+3. Searches `.intent/intents/*.intent.md` for file references
+4. Parses diff for new `function`/`class`/`def` definitions
+5. Compares with existing `@function`/`@class` anchors in intent
+
+**Outcomes:**
+- **No intent** → Suggests `/intent:generating-intents`
+- **Intent exists but incomplete** → Suggests adding chunks
+- **Intent complete** → Silent (no interruption)
+
+**Never blocks commits** - advisory only.
 
 ## Links
 

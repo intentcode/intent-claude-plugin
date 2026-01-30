@@ -69,21 +69,23 @@ cp -r intent-claude-plugin/skills/* ~/.claude/skills/
 - No hooks (no automatic context injection at startup)
 - Persistent installation (skills available in all sessions)
 
-### Option 3: Marketplace (Coming Soon)
+### Option 3: Install from GitHub
 
 ```bash
-claude
-> /plugin install intent
+claude /install-plugin https://github.com/intentcode/intent-claude-plugin
 ```
+
+This installs the plugin persistently with all hooks and skills.
 
 ### Which Option Should I Choose?
 
 | Need | Recommended Option |
 |------|-------------------|
-| Full experience with hooks | Option 1: `--plugin-dir` |
-| Persistent installation | Option 2: Skills only |
+| Quick install | Option 3: Install from GitHub |
+| Full experience with hooks | Option 1 or 3 |
+| Persistent installation | Option 2 or 3 |
 | Contributing/developing | Option 1: `--plugin-dir` |
-| Just trying it out | Option 1: `--plugin-dir` |
+| Just trying it out | Option 3: Install from GitHub |
 
 ## Usage
 
